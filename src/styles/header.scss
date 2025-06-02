@@ -1,0 +1,39 @@
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.header-container-wrap {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  background-color: green;
+  .left-menu {
+    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    > div:first-child {
+      width: 80px;
+      font-weight: bold;
+    }
+  }
+  .right-menu {
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    > div:nth-child(1) {
+      width: 80px;
+      font-weight: bold;
+    }
+    > div:nth-child(2) {
+      width: 80px;
+      font-weight: bold;
+    }
+    > div:nth-child(3) {
+      width: 80px;
+      font-weight: bold;
+    }
+  }
+}
