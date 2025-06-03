@@ -1,5 +1,5 @@
 // src/pages/Home.tsx (또는 원하는 경로에 저장)
-
+import "../../styles/list.scss";
 import React, { useState, useEffect } from "react";
 import { fetchSchoolInfo, SchoolInfoRow } from "../api/school"; // school.ts 파일에서 함수와 타입을 임포트
 
@@ -51,70 +51,94 @@ function Home() {
   // 디버깅 및 사용자 경험에 도움이 되므로 간단하게 구성했습니다.
   // 원하시면 return 내부의 JSX를 모두 제거하고 빈 div만 남겨도 됩니다.
   return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        padding: "20px",
-        maxWidth: "800px",
-        margin: "0 auto",
-      }}
-    >
-      <h1 style={{ textAlign: "center", color: "#333" }}>학교 정보 페이지</h1>
-      <p style={{ textAlign: "center", color: "#666" }}>
-        콘솔을 열어 "중원초등학교" 검색 결과를 확인하세요.
-      </p>
+    <>
+      <div className="list-container-wrap">
+        <div className="top-container-wrap">
+          <div className="top-container-left">
+            <div className="top-container-left-left">
+              <div>
+                교육청 : <input type="text" />
+              </div>
+              <div>
+                학교명 : <input type="text" />
+              </div>
+              <div>
+                이름 : <input type="text" />
+              </div>
 
-      {loading && (
-        <p style={{ textAlign: "center", color: "#666" }}>
-          학교 정보를 불러오는 중입니다...
-        </p>
-      )}
-
-      {error && (
-        <p style={{ color: "red", textAlign: "center", fontWeight: "bold" }}>
-          오류: {error}
-        </p>
-      )}
-
-      {!loading && !error && schools.length === 0 && (
-        <p style={{ textAlign: "center", color: "#666" }}>
-          검색 결과가 없습니다.
-        </p>
-      )}
-
-      {schools.length > 0 && (
-        <div>
-          <h2 style={{ textAlign: "center", color: "#333" }}>
-            검색된 학교 ({schools.length}개)
-          </h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {schools.map((school) => (
-              <li
-                key={school.SD_SCHUL_CODE}
-                style={{
-                  marginBottom: "15px",
-                  padding: "15px",
-                  border: "1px solid #eee",
-                  borderRadius: "8px",
-                  backgroundColor: "#fff",
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
-                }}
-              >
-                <strong style={{ fontSize: "1.1em", color: "#0056b3" }}>
-                  {school.SCHUL_NM}
-                </strong>{" "}
-                ({school.ATPT_OFCDC_SC_NM} - {school.SCHUL_KND_SC_NM})
-                <p
-                  style={{ fontSize: "0.9em", color: "#555", margin: "5px 0" }}
-                >
-                  주소: {school.ORG_RDNMA} {school.ORG_RDNMA_ADDR}
-                </p>
-              </li>
-            ))}
-          </ul>
+              <div>
+                <button>검색 </button>
+              </div>
+              <div>
+                <p>학교명 : </p>
+                <p>영문학교명 : </p>
+                <p>홈페이지 : </p>
+                <p>주소 : </p>
+                <p>우편 : </p>
+                <p>팩스 : </p>
+              </div>
+            </div>
+            <div className="top-container-left-right">
+              <p>학생 증명사진</p>
+            </div>
+          </div>
+          <div className="top-container-right">
+            <div>신규등록</div>
+            <div>신규등록</div>
+            <div>신규등록</div>
+            <div>신규등록</div>
+            <div>신규등록</div>
+          </div>
         </div>
-      )}
-    </div>
+        <div className="bottom-container-wrap">
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+          <div>
+            학번 : <input type="text" />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
