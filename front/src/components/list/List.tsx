@@ -52,89 +52,103 @@ function Home() {
   // 원하시면 return 내부의 JSX를 모두 제거하고 빈 div만 남겨도 됩니다.
   return (
     <>
-      <div className="list-container-wrap">
-        <div className="top-container-wrap">
-          <div className="top-container-left">
-            <div className="top-container-left-left">
-              <div>
-                교육청 : <input type="text" />
+      <div className="list-container">
+        <div className="list-container-wrap">
+          <div className="top-container-wrap">
+            <div className="top-container-left">
+              <div className="top-container-left-left">
+                <div>
+                  교육청 : <input type="text" />
+                </div>
+                <div>
+                  학교명 : <input type="text" />
+                </div>
+                <div>
+                  이름 : <input type="text" />
+                </div>
+                <div>
+                  <button>검색 </button>
+                </div>
+                <div>
+                  <p>학교명 : 중원초등학교</p>
+                  <p>영문학교명 : Seoul Jungwon EI </p>
+                  <p>홈페이지 : www.jungwon.es.kr </p>
+                  <p>주소 : 서울특별시 노원구 섬밭로 316 </p>
+                  <p>우편 : 1777</p>
+                  <p>팩스 : 02-971-4775</p>
+                </div>
               </div>
-              <div>
-                학교명 : <input type="text" />
-              </div>
-              <div>
-                이름 : <input type="text" />
-              </div>
-
-              <div>
-                <button>검색 </button>
-              </div>
-              <div>
-                <p>학교명 : </p>
-                <p>영문학교명 : </p>
-                <p>홈페이지 : </p>
-                <p>주소 : </p>
-                <p>우편 : </p>
-                <p>팩스 : </p>
+              <div className="top-container-left-right">
+                <div>
+                  학교코드 : <input type="text" />
+                </div>
+                <div>
+                  학교명 : <input type="text" />
+                </div>
+                <div>
+                  학생이름 : <input type="text" />
+                </div>
+                <div>
+                  학생생일 : <input type="text" />
+                </div>
+                <div>
+                  재적상태 : <input type="text" />
+                </div>
+                <div>
+                  학생주소 : <input type="text" />
+                </div>
               </div>
             </div>
-            <div className="top-container-left-right">
-              <p>학생 증명사진</p>
+            <div className="top-container-right">
+              <div>신규등록</div>
             </div>
           </div>
-          <div className="top-container-right">
-            <div>신규등록</div>
-            <div>신규등록</div>
-            <div>신규등록</div>
-            <div>신규등록</div>
-            <div>신규등록</div>
-          </div>
-        </div>
-        <div className="bottom-container-wrap">
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
-          </div>
-          <div>
-            학번 : <input type="text" />
+          <div className="bottom-container-wrap">
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
+            <div>
+              학번 : <input type="text" />
+            </div>
           </div>
         </div>
       </div>

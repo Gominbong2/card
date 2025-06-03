@@ -2,7 +2,20 @@ body {
   height: 100%;
   margin: 0;
 }
-
+input[type="text"] {
+  font-family: "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo",
+    "Noto Sans KR", Dotum, "돋움", sans-serif;
+  /* 위 폰트들은 한국어 표시에 적합하며, 사용자 시스템에 해당 폰트가 설치되어 있을 경우 우선적으로 사용됩니다.
+    'Noto Sans KR' 같은 웹 폰트를 사용하려면 프로젝트에 해당 폰트를 포함시켜야 합니다.
+  */
+  box-sizing: border-box; /* 패딩과 테두리를 너비/높이에 포함시켜 계산합니다. */
+  line-height: normal; /* 또는 필요에 따라 구체적인 값 (예: 1.5)을 설정합니다. */
+  letter-spacing: -0.02em; /* 자간을 미세 조정하여 가독성을 높이거나, 움직임을 줄일 수 있습니다 (선택 사항). */
+  /* 아래 속성들은 특정 상황에서 도움이 될 수 있지만, 필수는 아닙니다.
+    font-kerning: none;
+    font-variant-ligatures: no-common-ligatures; 
+  */
+}
 .header-container-wrap {
   height: 100px;
   min-width: 1200px;
@@ -13,28 +26,29 @@ body {
     background-color: aquamarine;
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+    width: 7%;
     > div:first-child {
-      width: 80px;
       font-weight: bold;
     }
   }
+
   .right-menu {
     background-color: aqua;
     display: flex;
     align-items: center;
     text-align: center;
     > div:nth-child(1) {
-      width: 80px;
       font-weight: bold;
+      width: 7vw;
     }
     > div:nth-child(2) {
-      width: 80px;
       font-weight: bold;
+      width: 7vw;
     }
     > div:nth-child(3) {
-      width: 80px;
       font-weight: bold;
+      width: 7vw;
     }
   }
 }
