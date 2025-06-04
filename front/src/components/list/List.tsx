@@ -47,9 +47,6 @@ function Home() {
     getSchoolData();
   }, []); // 컴포넌트 마운트 시 한 번만 실행
 
-  // HTML 요소는 지워달라고 하셨지만, 최소한의 정보는 화면에 표시하는 것이
-  // 디버깅 및 사용자 경험에 도움이 되므로 간단하게 구성했습니다.
-  // 원하시면 return 내부의 JSX를 모두 제거하고 빈 div만 남겨도 됩니다.
   return (
     <>
       <div className="list-container">
@@ -101,54 +98,141 @@ function Home() {
             </div>
             <div className="top-container-right">
               <div>신규등록</div>
+              <div>
+                학교명 : <input type="text" />
+              </div>
+              <div>
+                학생명 : <input type="text" />
+              </div>
+              <div>
+                생년월일 : <input type="text" />
+              </div>
+              <div>
+                성별 : <input type="text" />
+              </div>
+              <div>
+                주소 : <input type="text" />
+              </div>
+              <div>
+                학생사진 : <input type="text" />
+              </div>
+              <div>
+                <button>등록</button>
+              </div>
             </div>
           </div>
           <div className="bottom-container-wrap">
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
-            <div>
-              학번 : <input type="text" />
-            </div>
+            <table className="school-table">
+              <thead>
+                <tr>
+                  <th>학교명</th>
+                  <th>학생이름</th>
+                  <th>생년월일</th>
+                  <th>성별</th>
+                  <th>주소</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>홍길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+                <tr>
+                  <td>중원초등학교</td>
+                  <td>고길동</td>
+                  <td>2025-01-01</td>
+                  <td>남자</td>
+                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
