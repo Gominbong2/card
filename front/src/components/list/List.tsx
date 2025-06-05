@@ -1,12 +1,66 @@
 // src/pages/Home.tsx (또는 원하는 경로에 저장)
 import "../../styles/list.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { fetchSchoolInfo, SchoolInfoRow } from "../api/school"; // school.ts 파일에서 함수와 타입을 임포트
+import axios from "axios";
+
+type studentList = {
+  barcode: string;
+  id: string;
+  schoolAddress: string;
+  schoolCode: string;
+  schoolEnglishName: string;
+  schoolName: string;
+  schoolZipCode: string;
+  studentDateOfBirth: string; // YYYY-MM-DD 형식의 문자열
+  studentGender: "M" | "F"; // "M" 또는 "F"만 가능
+  studentImg: string | null; // 이미지 URL이 문자열이거나 null일 수 있음
+  studentName: string;
+  studentStatus: string;
+};
 
 function Home() {
   const [schools, setSchools] = useState<SchoolInfoRow[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [selectedOfficeCode, setSelectedOfficeCode] = useState<string>("");
+  const [schoolName, setSchoolName] = useState<String>("");
+  const [studentName, setStudentName] = useState<String>("");
+
+  const [studentList, setStudentList] = useState<studentList[]>([]);
+
+  
+  const handleOfficeChange = (event: ChangeEvent<HTMLSelectElement>): void => {
+    setSelectedOfficeCode(event.target.value);
+  };
+
+  const handleSearchClick = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    try {
+      console.log("검색클릭");
+      const searchParams = { selectedOfficeCode, schoolName, studentName };
+      const res = await axios.get(
+        "http://localhost:8080/RestBoard/checkcard/api/list",
+        { params: searchParams }
+      );
+      console.log(res.data);
+      console.log(typeof res.data);
+    } catch (err) {}
+  };
+
+  const handleSchoolNameChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setSchoolName(event.target.value);
+  };
+
+  const handleStudentNameChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setStudentName(event.target.value);
+  };
 
   useEffect(() => {
     const getSchoolData = async () => {
@@ -55,16 +109,44 @@ function Home() {
             <div className="top-container-left">
               <div className="top-container-left-left">
                 <div>
-                  교육청 : <input type="text" />
+                  교육청 :
+                  <select
+                    value={selectedOfficeCode}
+                    onChange={handleOfficeChange}
+                    className="select-box"
+                    id="educationOffice"
+                    name="sido_education_office"
+                  >
+                    <option value="">-- 선택해주세요 --</option>
+                    <option value="B10">서울특별시교육청</option>
+                    <option value="C10">부산광역시교육청</option>
+                    <option value="D10">대구광역시교육청</option>
+                    <option value="E10">인천광역시교육청</option>
+                    <option value="F10">광주광역시교육청</option>
+                    <option value="G10">대전광역시교육청</option>
+                    <option value="H10">울산광역시교육청</option>
+                    <option value="I10">세종특별자치시교육청</option>
+                    <option value="J10">경기도교육청</option>
+                    <option value="K10">강원특별자치도교육청</option>
+                    <option value="M10">충청북도교육청</option>
+                    <option value="N10">충청남도교육청</option>
+                    <option value="P10">전북특별자치도교육청</option>
+                    <option value="Q10">전라남도교육청</option>
+                    <option value="R10">경상북도교육청</option>
+                    <option value="S10">경상남도교육청</option>
+                    <option value="T10">제주특별자치도교육청</option>
+                  </select>
                 </div>
                 <div>
-                  학교명 : <input type="text" />
+                  학교명 :{" "}
+                  <input type="text" onChange={handleSchoolNameChange} />
                 </div>
                 <div>
-                  이름 : <input type="text" />
+                  이름 :{" "}
+                  <input type="text" onChange={handleStudentNameChange} />
                 </div>
                 <div>
-                  <button>검색 </button>
+                  <button onClick={handleSearchClick}>검색 </button>
                 </div>
                 <div>
                   <p>학교명 : 중원초등학교</p>
