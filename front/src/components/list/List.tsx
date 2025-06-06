@@ -30,7 +30,6 @@ function Home() {
 
   const [studentList, setStudentList] = useState<studentList[]>([]);
 
-  
   const handleOfficeChange = (event: ChangeEvent<HTMLSelectElement>): void => {
     setSelectedOfficeCode(event.target.value);
   };
@@ -175,6 +174,11 @@ function Home() {
                 </div>
                 <div>
                   학생주소 : <input type="text" />
+                </div>
+
+                <div className="gird-binding">
+                  <button>수정 </button>
+                  <button>저장 </button>
                 </div>
               </div>
             </div>
