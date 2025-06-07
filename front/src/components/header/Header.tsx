@@ -1,4 +1,4 @@
-import "../../styles/header.scss";
+import "./header.scss";
 const Header: React.FC = () => {
   return (
     <div className="header-container-wrap">

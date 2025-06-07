@@ -1,5 +1,5 @@
 // src/pages/Home.tsx (또는 원하는 경로에 저장)
-import "../../styles/list.scss";
+import "./list.scss";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { fetchSchoolInfo, SchoolInfoRow } from "../api/school"; // school.ts 파일에서 함수와 타입을 임포트
 import axios from "axios";
@@ -201,7 +201,7 @@ function Home() {
                   <input type="text" onChange={handleStudentNameChange} />
                 </div>
                 <div>
-                  <button>검색 </button>
+                  <button onClick={handleSearchClick}>검색 </button>
                 </div>
                 <div>
                   <p>학교명 : 중원초등학교</p>
@@ -269,8 +269,8 @@ function Home() {
                   <option value="T10">제주특별자치도교육청</option>
                 </select>
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                  <h2>이것은 `onClick`으로 띄운 모달입니다!</h2>
-                  <div>
+                  {/* 모달 내부 검색창 영역 */}
+                  <div className="modal-search-area">
                     학교 : <input onChange={modalSearchChange} type="text" />
                     <button
                       value={modalSearchBtnValue}
@@ -279,9 +279,9 @@ function Home() {
                       검색
                     </button>
                   </div>
-
-                  <div>
-                    <table className="school-table">
+                  {/* 테이블 스크롤 영역 */}
+                  <div className="modal-table-container">
+                    <table className="modal-school-table">
                       <thead>
                         <tr>
                           <th>학교명</th>
@@ -292,12 +292,15 @@ function Home() {
                         </tr>
                       </thead>
                       <tbody>
+                        {/* 이 부분부터 스크롤됩니다. */}
                         <tr>
                           <td>중원초등학교</td>
                           <td>홍길동</td>
                           <td>2025-01-01</td>
                           <td>남자</td>
-                          <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                          <td>
+                            서울시 노원구 중계동 나머지주소 000동 0000ddddd호{" "}
+                          </td>
                         </tr>
                         <tr>
                           <td>중원초등학교</td>
@@ -362,7 +365,6 @@ function Home() {
                           <td>남자</td>
                           <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
                         </tr>
-
                         <tr>
                           <td>중원초등학교</td>
                           <td>고길동</td>
@@ -450,6 +452,7 @@ function Home() {
                 <input
                   type="text"
                   placeholder="검색하려면눌러주세요"
+                  readOnly={true}
                   onClick={handleAddSearchClick}
                 />
               </div>
@@ -474,173 +477,175 @@ function Home() {
             </div>
           </div>
           <div className="bottom-container-wrap">
-            <table className="school-table">
-              <thead>
-                <tr>
-                  <th>학교명</th>
-                  <th>학생이름</th>
-                  <th>생년월일</th>
-                  <th>성별</th>
-                  <th>주소</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>홍길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-                <tr>
-                  <td>중원초등학교</td>
-                  <td>고길동</td>
-                  <td>2025-01-01</td>
-                  <td>남자</td>
-                  <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
-                </tr>
-              </tbody>
-            </table>
+            <div>
+              <table className="school-table">
+                <thead>
+                  <tr>
+                    <th>학교명</th>
+                    <th>학생이름</th>
+                    <th>생년월일</th>
+                    <th>성별</th>
+                    <th>주소</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>홍길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                  <tr>
+                    <td>중원초등학교</td>
+                    <td>고길동</td>
+                    <td>2025-01-01</td>
+                    <td>남자</td>
+                    <td>서울시 노원구 중계동 나머지주소 000동 0000호 </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
