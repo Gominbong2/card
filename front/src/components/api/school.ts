@@ -44,7 +44,7 @@ export interface SchoolInfoRow {
   ORG_RDNMA: string; // 도로명주소
   ORG_RDNMA_ADDR: string; // 도로명상세주소
   ORG_TELNO: string; // 전화번호
-  HP_ADDR: string; // 홈페이지 주소
+  HMPG_ADRES: string; // 홈페이지 주소
   FAXNO: string; // 팩스번호
   DGHT_SC_NM: string; // 주야구분명 (예: "주간")
   FOUND_YMD: string; // 설립인가일자 (YYYYMMDD 형식)
@@ -55,6 +55,7 @@ export interface SchoolInfoRow {
 // API 요청 시 사용할 쿼리 파라미터에 대한 인터페이스
 // 이 타입 또한 'List.tsx'에서 사용할 수 있도록 'export' 키워드를 붙입니다.
 export interface SchoolSearchParams {
+  ATPT_OFCDC_SC_CODE?: string;
   SD_SCHUL_CODE?: string; // 표준학교코드 (선택적 검색 조건)
   SCHUL_NM?: string; // 학교명 (선택적 검색 조건)
   ENG_SCHUL_NM?: string; // 영문학교명 (선택적 검색 조건)
@@ -81,7 +82,7 @@ export async function fetchSchoolInfo( // 외부에서 임포트하여 사용할
   // searchConditions 객체에서 pIndex와 pSize를 추출하고, 나머지는 otherConditions에 담습니다.
   const { pIndex = 1, pSize = 100, ...otherConditions } = searchConditions;
 
-  const SEOUL_CITY_CODE = "B10"; // 서울특별시교육청 코드 (하드코딩)
+  // const SEOUL_CITY_CODE = "B10"; // 서울특별시교육청 코드 (하드코딩)
 
   // API 요청에 필요한 쿼리 파라미터 객체를 구성합니다.
   const queryParams = {
@@ -89,7 +90,7 @@ export async function fetchSchoolInfo( // 외부에서 임포트하여 사용할
     Type: "json", // 응답 데이터 형식 (JSON으로 고정)
     pIndex: pIndex.toString(), // 페이지 번호 (문자열로 변환)
     pSize: pSize.toString(), // 한 페이지 결과 건수 (문자열로 변환)
-    ATPT_OFCDC_SC_CODE: SEOUL_CITY_CODE, // 서울특별시 코드로 고정된 시도교육청 코드
+    // 서울특별시 코드로 고정된 시도교육청 코드
     ...otherConditions, // 학교명(SCHUL_NM) 등 그 외의 검색 조건들
   };
 
