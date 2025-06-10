@@ -6,16 +6,6 @@ import axios from "axios";
 import Modal from "../modal/Modal";
 
 interface FormData {
-  schoolCode: string;
-  schoolName: string;
-  studentName: string;
-  studentBirth: string;
-  studentStatus: string;
-  studentAddress: string;
-}
-
-type studentList = {
-  barcode: string;
   id: string;
   schoolAddress: string;
   schoolCode: string;
@@ -27,6 +17,26 @@ type studentList = {
   studentImg: string | null; // 이미지 URL이 문자열이거나 null일 수 있음
   studentName: string;
   studentStatus: string;
+  barcode: string;
+  studentAddress: string;
+  officeCode: string;
+}
+
+type studentList = {
+  id: string;
+  schoolAddress: string;
+  schoolCode: string;
+  schoolEnglishName: string;
+  schoolName: string;
+  schoolZipCode: string;
+  studentDateOfBirth: string; // YYYY-MM-DD 형식의 문자열
+  studentGender: "M" | "F"; // "M" 또는 "F"만 가능
+  studentImg: string | null; // 이미지 URL이 문자열이거나 null일 수 있음
+  studentName: string;
+  studentStatus: string;
+  barcode: string;
+  studentAddress: string;
+  officeCode: string;
 };
 
 function Home() {
@@ -49,12 +59,20 @@ function Home() {
   const [studentAddress, setStudentAddress] = useState<string>("");
   const [schoolAddress, setSchoolAddress] = useState<string>("");
   const [editFormData, setEditFormData] = useState<FormData>({
+    id: "", // number 타입의 기본값
+    schoolAddress: "", // string 타입의 기본값
     schoolCode: "",
+    schoolEnglishName: "",
     schoolName: "",
+    schoolZipCode: "",
+    studentDateOfBirth: "YYYY-MM-DD", // 날짜 문자열 예시
+    studentGender: "M", // "M" 또는 "F" 중 하나로 초기화
+    studentImg: "12345", // string | null 타입의 기본값
     studentName: "",
-    studentBirth: "",
     studentStatus: "",
+    barcode: "",
     studentAddress: "",
+    officeCode: "",
   });
 
   // 새롭게 추가된 상태: 편집 모드 여부
@@ -189,7 +207,9 @@ function Home() {
           console.log(`  시도교육청: ${school.ATPT_OFCDC_SC_NM}`);
           console.log(`  코드: ${school.SD_SCHUL_CODE}`);
           console.log(`  학교종류: ${school.SCHUL_KND_SC_NM}`);
-          console.log(`  주소: ${school.ORG_RDNMA} ${school.ORG_RDNMA_ADDR}`);
+          console.log(
+            `  학교주소: ${school.ORG_RDNMA} ${school.ORG_RDNMA_ADDR}`
+          );
           console.log(`  우편번호: ${school.ORG_RDNZC}`);
           if (school.ORG_TELNO) console.log(`  전화: ${school.ORG_TELNO}`);
           if (school.HMPG_ADRES)
@@ -221,16 +241,16 @@ function Home() {
     try {
       const data = {
         studentName: addStudentName,
-        studentPhoto: "img",
-        birthDate: birthDate,
-        korName: modalSchoolNameInput,
-        engName: engSchoolName,
+        studentImg: "img", // studentPhoto를 studentImg로 변경
+        studentDateOfBirth: birthDate, // birthDate를 studentDateOfBirth로 변경
+        schoolName: modalSchoolNameInput, // korName을 schoolName으로 변경
+        schoolEnglishName: engSchoolName, // engName을 schoolEnglishName으로 변경
         schoolCode: schoolCode,
-        status: "재적",
+        studentStatus: "재적", // status를 studentStatus로 변경
         schoolZipCode: schoolZipCode,
         schoolAddress: schoolAddress,
         barcode: "BCM00000053",
-        gender: selectedGender,
+        studentGender: selectedGender, // gender를 studentGender로 변경
         studentAddress: studentAddress,
         officeCode: addOfficeCode,
       };
@@ -267,16 +287,8 @@ function Home() {
   };
 
   const studentListClick = (student: studentList) => {
-    const data = {
-      schoolCode: student.schoolCode,
-      schoolName: student.schoolName,
-      studentName: student.studentName,
-      studentBirth: student.studentDateOfBirth,
-      studentStatus: student.studentStatus,
-      studentAddress: student.schoolAddress,
-    };
+    setEditFormData(student);
 
-    setEditFormData(data);
     // 학생 목록에서 항목을 클릭했을 때 편집 모드를 해제합니다.
     // 사용자가 다시 '수정' 버튼을 눌러야 편집 가능하도록 합니다.
     setIsEditing(false);
@@ -301,8 +313,9 @@ function Home() {
     try {
       console.log("저장 클릭, 저장할 데이터:", editFormData);
       // 여기에 editFormData를 서버로 전송하는 API 호출 로직을 추가합니다.
+
       const res = await axios.post(
-        "http://localhost:8080/RestBoard/checkcard/api/update",
+        "http://localhost:8080/RestBoard/checkcard/api/update-member",
         editFormData
       );
       alert("데이터가 저장되었습니다!");
@@ -404,7 +417,7 @@ function Home() {
                     type="text"
                     name="studentBirth"
                     readOnly={!isEditing}
-                    value={editFormData.studentBirth}
+                    value={editFormData.studentDateOfBirth}
                     onChange={handleEditFormChange}
                   />
                 </div>
@@ -419,12 +432,12 @@ function Home() {
                   />
                 </div>
                 <div>
-                  학생주소 :{" "}
+                  학교주소 :{" "}
                   <input
                     type="text"
-                    name="studentAddress"
+                    name="schoolAddress"
                     readOnly={!isEditing}
-                    value={editFormData.studentAddress}
+                    value={editFormData.schoolAddress}
                     onChange={handleEditFormChange}
                   />
                 </div>
@@ -436,138 +449,170 @@ function Home() {
               </div>
             </div>
             <div className="top-container-right">
-              <div className="1">신규등록</div>
-              <div className="2">
-                교육청 :
-                <select
-                  value={addOfficeCode}
-                  onChange={handleAddOfficeChange}
-                  className="select-box-2"
-                  id="educationOffice"
-                  name="sido_education_office"
-                >
-                  <option value="">-- 선택해주세요 --</option>
-                  <option value="B10">서울특별시교육청</option>
-                  <option value="C10">부산광역시교육청</option>
-                  <option value="D10">대구광역시교육청</option>
-                  <option value="E10">인천광역시교육청</option>
-                  <option value="F10">광주광역시교육청</option>
-                  <option value="G10">대전광역시교육청</option>
-                  <option value="H10">울산광역시교육청</option>
-                  <option value="I10">세종특별자치시교육청</option>
-                  <option value="J10">경기도교육청</option>
-                  <option value="K10">강원특별자치도교육청</option>
-                  <option value="M10">충청북도교육청</option>
-                  <option value="N10">충청남도교육청</option>
-                  <option value="P10">전북특별자치도교육청</option>
-                  <option value="Q10">전라남도교육청</option>
-                  <option value="R10">경상북도교육청</option>
-                  <option value="S10">경상남도교육청</option>
-                  <option value="T10">제주특별자치도교육청</option>
-                </select>
-                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                  {/* 모달 내부 검색창 영역 */}
-                  <div className="modal-search-area">
-                    학교 : <input onChange={modalSearchChange} type="text" />
-                    <button value={modalSearchValue} onClick={modalSearchBtn}>
-                      검색
-                    </button>
-                  </div>
-                  {/* 테이블 스크롤 영역 */}
-                  <div className="modal-table-container">
-                    <table className="modal-school-table">
-                      <thead>
-                        <tr>
-                          <th>시도교육청</th>
-                          <th>학교명</th>
-                          <th>학교종류</th>
-                          <th>주소</th>
-                          <th>전화번호</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* schools 배열을 map으로 렌더링 */}
-                        {schools.map((school, index) => (
-                          <tr
-                            key={index}
-                            onClick={() => modalTableTrClick(school)}
-                          >
-                            {/* key는 고유해야 하며, 여기서는 index를 사용했지만 실제 데이터에는 고유 ID가 있다면 그것을 사용하세요. */}
-                            <td>{school.ATPT_OFCDC_SC_NM}</td>
-                            <td>{school.SCHUL_NM}</td>
-                            <td>{school.SCHUL_KND_SC_NM}</td>
-                            <td>
-                              {school.ORG_RDNMA} {school.ORG_RDNMA_ADDR}
-                            </td>
-                            <td>{school.ORG_TELNO || "-"}</td>
+              <div className="top-container-right-left">
+                <div className="1">신규등록</div>
+                <div className="2">
+                  교육청 :
+                  <select
+                    value={addOfficeCode}
+                    onChange={handleAddOfficeChange}
+                    className="select-box-2"
+                    id="educationOffice"
+                    name="sido_education_office"
+                  >
+                    <option value="">-- 선택해주세요 --</option>
+                    <option value="B10">서울특별시교육청</option>
+                    <option value="C10">부산광역시교육청</option>
+                    <option value="D10">대구광역시교육청</option>
+                    <option value="E10">인천광역시교육청</option>
+                    <option value="F10">광주광역시교육청</option>
+                    <option value="G10">대전광역시교육청</option>
+                    <option value="H10">울산광역시교육청</option>
+                    <option value="I10">세종특별자치시교육청</option>
+                    <option value="J10">경기도교육청</option>
+                    <option value="K10">강원특별자치도교육청</option>
+                    <option value="M10">충청북도교육청</option>
+                    <option value="N10">충청남도교육청</option>
+                    <option value="P10">전북특별자치도교육청</option>
+                    <option value="Q10">전라남도교육청</option>
+                    <option value="R10">경상북도교육청</option>
+                    <option value="S10">경상남도교육청</option>
+                    <option value="T10">제주특별자치도교육청</option>
+                  </select>
+                  <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                    {/* 모달 내부 검색창 영역 */}
+                    <div className="modal-search-area">
+                      학교 : <input onChange={modalSearchChange} type="text" />
+                      <button value={modalSearchValue} onClick={modalSearchBtn}>
+                        검색
+                      </button>
+                    </div>
+                    {/* 테이블 스크롤 영역 */}
+                    <div className="modal-table-container">
+                      <table className="modal-school-table">
+                        <thead>
+                          <tr>
+                            <th>시도교육청</th>
+                            <th>학교명</th>
+                            <th>학교종류</th>
+                            <th>학교주소</th>
+                            <th>전화번호</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </Modal>
+                        </thead>
+                        <tbody>
+                          {/* schools 배열을 map으로 렌더링 */}
+                          {schools.map((school, index) => (
+                            <tr
+                              key={index}
+                              onClick={() => modalTableTrClick(school)}
+                            >
+                              {/* key는 고유해야 하며, 여기서는 index를 사용했지만 실제 데이터에는 고유 ID가 있다면 그것을 사용하세요. */}
+                              <td>{school.ATPT_OFCDC_SC_NM}</td>
+                              <td>{school.SCHUL_NM}</td>
+                              <td>{school.SCHUL_KND_SC_NM}</td>
+                              <td>
+                                {school.ORG_RDNMA} {school.ORG_RDNMA_ADDR}
+                              </td>
+                              <td>{school.ORG_TELNO || "-"}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </Modal>
+                </div>
+                <div className="3">
+                  학교명 :{" "}
+                  <input
+                    type="text"
+                    value={modalSchoolNameInput}
+                    placeholder="검색하려면눌러주세요"
+                    readOnly={true}
+                    onClick={handleAddSearchClick}
+                  />
+                </div>
+                <div className="4">
+                  학생명 :{" "}
+                  <input
+                    type="text"
+                    onChange={handelAddStudentName}
+                    value={addStudentName}
+                  />
+                </div>
+                <div className="5">
+                  생년월일 :{" "}
+                  <input
+                    type="date"
+                    value={birthDate}
+                    onChange={handleBirthdateChange}
+                  />
+                </div>
+                <div className="6">
+                  성별 :{" "}
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender" // 동일한 name으로 그룹화
+                    value="M"
+                    checked={selectedGender === "M"} // state 값과 일치하는지 확인하여 checked 상태 결정
+                    onChange={handleGenderChange} // 변경 시 핸들러 호출
+                  />
+                  <label htmlFor="male">남성</label>
+                  {/* 여성 라디오 버튼 */}
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender" // 동일한 name으로 그룹화
+                    value="F"
+                    checked={selectedGender === "F"} // state 값과 일치하는지 확인하여 checked 상태 결정
+                    onChange={handleGenderChange} // 변경 시 핸들러 호출
+                  />
+                  <label htmlFor="female">여성</label>
+                </div>
+                <div className="7">
+                  학생주소 :{" "}
+                  <input
+                    type="text"
+                    onChange={handleStudentAddressChange}
+                    value={studentAddress}
+                  />
+                </div>
+                <div className="8">
+                  학생사진 : <input type="text" />
+                </div>
+                <div className="9">
+                  <button onClick={addStudentClick}>등록</button>
+                </div>
               </div>
-              <div className="3">
-                학교명 :{" "}
-                <input
-                  type="text"
-                  value={modalSchoolNameInput}
-                  placeholder="검색하려면눌러주세요"
-                  readOnly={true}
-                  onClick={handleAddSearchClick}
-                />
-              </div>
-              <div className="4">
-                학생명 :{" "}
-                <input
-                  type="text"
-                  onChange={handelAddStudentName}
-                  value={addStudentName}
-                />
-              </div>
-              <div className="5">
-                생년월일 :{" "}
-                <input
-                  type="date"
-                  value={birthDate}
-                  onChange={handleBirthdateChange}
-                />
-              </div>
-              <div className="6">
-                성별 :{" "}
-                <input
-                  type="radio"
-                  id="male"
-                  name="gender" // 동일한 name으로 그룹화
-                  value="M"
-                  checked={selectedGender === "M"} // state 값과 일치하는지 확인하여 checked 상태 결정
-                  onChange={handleGenderChange} // 변경 시 핸들러 호출
-                />
-                <label htmlFor="male">남성</label>
-                {/* 여성 라디오 버튼 */}
-                <input
-                  type="radio"
-                  id="female"
-                  name="gender" // 동일한 name으로 그룹화
-                  value="F"
-                  checked={selectedGender === "F"} // state 값과 일치하는지 확인하여 checked 상태 결정
-                  onChange={handleGenderChange} // 변경 시 핸들러 호출
-                />
-                <label htmlFor="female">여성</label>
-              </div>
-              <div className="7">
-                주소 :{" "}
-                <input
-                  type="text"
-                  onChange={handleStudentAddressChange}
-                  value={studentAddress}
-                />
-              </div>
-              <div className="8">
-                학생사진 : <input type="text" />
-              </div>
-              <div className="9">
-                <button onClick={addStudentClick}>등록</button>
+
+              <div className="top-container-right-right">
+                <div>
+                  카드이름 : <input type="text" value="우리 스쿨체크카드" />
+                </div>
+                <div>
+                  카드번호 : <input type="text" />
+                </div>
+                <div>
+                  카드타입 :
+                  <input
+                    type="checkbox"
+                    id="cardTypeCheck"
+                    name="cardType"
+                    value="체크카드"
+                  />
+                  <label>체크카드</label>
+                </div>
+                <div>
+                  브랜드 :{" "}
+                  <select className="select-box-2">
+                    <option value="">-- 선택해주세요 --</option>
+                    <option value="Visa">비자</option>
+                    <option value="MasterCard">마스터</option>
+                  </select>
+                </div>
+                <div>
+                  <button>등록</button>
+                </div>
               </div>
             </div>
           </div>
@@ -580,7 +625,7 @@ function Home() {
                     <th>학생이름</th>
                     <th>생년월일</th>
                     <th>성별</th>
-                    <th>주소</th>
+                    <th>학교주소</th>
                   </tr>
                 </thead>
                 <tbody>
