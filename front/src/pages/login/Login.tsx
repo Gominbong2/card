@@ -6,7 +6,7 @@ const Login: React.FC = () => {
   return (
     <>
       <Header />
-      <List />
+      <h1>로그인페이지</h1>
     </>
   );
 };

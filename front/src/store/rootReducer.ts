@@ -1,8 +1,6 @@
 // reducers.ts
 import { combineReducers } from "@reduxjs/toolkit";
-import * as L from "./login";
-// 리듀서를 불러옵니다.
-// 각 리듀서의 상태 타입을 정의합니다.
+import * as L from "./login"; // login 리듀서를 가져옵니다.
 
 const rootReducer = combineReducers({
   login: L.reducer,

@@ -1,10 +1,12 @@
-.list-container {
+/* list.module.scss */
+
+.listContainer {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
 
-.list-container-wrap {
+.listContainerWrap {
   display: flex;
   flex-direction: column;
   border: 1px blue solid;
@@ -13,19 +15,19 @@
   margin-right: 50px;
   min-width: 1100px;
 
-  .top-container-wrap {
+  .topContainerWrap {
     display: flex;
     border: 1px red solid;
     height: 60%;
     padding: 10px;
-    .top-container-left {
+    .topContainerLeft {
       display: flex;
       flex-direction: row;
       width: 50%;
       border: 1px pink solid;
       padding: 10px;
 
-      .top-container-left-left {
+      .topContainerLeftLeft {
         display: flex;
         flex-direction: column;
         width: 50%;
@@ -49,7 +51,7 @@
         }
       }
 
-      .top-container-left-right {
+      .topContainerLeftRight {
         display: flex;
         flex-direction: column;
         padding: 10px;
@@ -62,13 +64,13 @@
         }
       }
     }
-    .top-container-right {
+    .topContainerRight {
       display: flex;
       flex-direction: row;
       width: 50%;
       border: 1px pink solid;
       padding: 10px;
-      .top-container-right-left {
+      .topContainerRightLeft {
         display: flex;
         flex-direction: column;
         width: 50%;
@@ -95,7 +97,7 @@
         }
       }
 
-      .top-container-right-right {
+      .topContainerRightRight {
         display: flex;
         flex-direction: column;
         padding: 10px;
@@ -103,7 +105,7 @@
         margin-left: 10px;
         width: 50%;
 
-        .select-box-2 {
+        .selectBox2 {
           height: 27px;
           margin-left: 15px;
           width: 150px;
@@ -115,14 +117,14 @@
       }
     }
   }
-  .bottom-container-wrap {
+  .bottomContainerWrap {
     max-height: 40%;
     border: 1px red solid;
     padding: 10px;
     > div:nth-child(1) {
       overflow: auto;
       max-height: 100%;
-      .school-table {
+      .schoolTable {
         width: 98%;
         text-align: center;
         border-collapse: collapse;
@@ -160,9 +162,52 @@
   }
 }
 
-.gird-binding {
+.girdBinding {
   margin-top: 10px;
   display: flex;
   justify-content: end;
   margin-right: 10px;
+}
+
+/* Modal 컴포넌트용 스타일은 Modal.tsx/Modal.scss에 있을 것으로 예상되므로 이 파일에는 포함하지 않습니다. */
+.modalSearchArea {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  input {
+    flex-grow: 1;
+    padding: 5px;
+  }
+  button {
+    padding: 5px 10px;
+  }
+}
+
+.modalTableContainer {
+  max-height: 300px; /* 모달 내 테이블 스크롤을 위한 높이 설정 */
+  overflow-y: auto;
+  margin-top: 10px;
+
+  .modalSchoolTable {
+    width: 100%;
+    border-collapse: collapse;
+    thead {
+      position: sticky;
+      top: 0;
+      background-color: #f0f0f0;
+      z-index: 1;
+    }
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    tbody tr:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  }
 }
